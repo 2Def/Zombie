@@ -8,6 +8,8 @@ public class Game : MonoBehaviour
 
     public static Vector3 terrainSize;
 
+    enum GAME { PLAY, PAUSE };
+    GAME game;
     List<Enemy> enemies;
     CharacterControll playerInfo;
     Text hello, counter;
@@ -27,6 +29,8 @@ public class Game : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     [SerializeField]
+    GameObject pauseMenu;
+    [SerializeField]
     Slider sprintLevel;
 
 
@@ -39,6 +43,7 @@ public class Game : MonoBehaviour
         terrainSize = new Vector3(beginSize.x + terrainMultipler, height, beginSize.y + terrainMultipler);
         terrain.terrainData.size = terrainSize;
         Cursor.visible = false;
+        game = GAME.PLAY;
 
         enemies = new List<Enemy>();
 
@@ -62,29 +67,51 @@ public class Game : MonoBehaviour
          * */
         hello = canvas.transform.Find("Hello").GetComponent<Text>();
         counter = canvas.transform.Find("Counter").GetComponent<Text>();
+        
     }
 
     private void Update()
     {
+
         sprintLevel.value = player.GetSprint();
 
-        if(timeToPlay > 0)
+        switch(game)
         {
-            string currentTime = timeToPlay.ToString();
-            timeToPlay -= Time.deltaTime;
-            counter.text = currentTime;
-            if (timeToPlay <= 0)
-            {
-                counter.enabled = false;
-                hello.enabled = false;
-            }
-        }else
-        {
-            foreach (Enemy e in enemies)
-            {
-                e.UpdateState();
-            }
-        }
+            case GAME.PLAY:
+                {
 
+                    if(Input.GetKey(KeyCode.Escape))
+                    {
+                        game = GAME.PAUSE;
+                    }
+
+                    if (timeToPlay > 0)
+                    {
+                        string currentTime = timeToPlay.ToString();
+                        timeToPlay -= Time.deltaTime;
+                        counter.text = currentTime;
+                        if (timeToPlay <= 0)
+                        {
+                            counter.enabled = false;
+                            hello.enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        foreach (Enemy e in enemies)
+                        {
+                            e.UpdateState();
+                        }
+                    }
+                }
+                break;
+
+
+            case GAME.PAUSE:
+                {
+                    pauseMenu.GetComponent<Renderer>().enabled = true;
+                }
+                break;
+        }
     }
 }
