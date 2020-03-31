@@ -83,10 +83,7 @@ public class Game : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.Escape))
                     {
                         game = GAME.PAUSE;
-                        pauseMenu.SetActive(true);
-                        Cursor.visible = true;
-                        player.Pause(true);
-                        
+                        GameState(true);
                     }
 
                     if (timeToPlay > 0)
@@ -112,9 +109,38 @@ public class Game : MonoBehaviour
         }
     }
 
+    void GameState(bool _s)
+    {
+        pauseMenu.SetActive(_s);
+        Cursor.visible = _s;
+        player.Pause(_s);
+    }
+
+    public bool CheckWinGame()
+    {
+        int amountOfEnemies = enemies.Count;
+        int currentFreezed = 0;
+
+        foreach(Enemy e in enemies)
+        {
+            if (e.state == Enemy.States.STOP)
+                currentFreezed++;
+        }
+        if (amountOfEnemies == currentFreezed)
+            return true;
+
+        return false;
+    }
+
     public void ExitGame()
     {
         
         Application.Quit();
+    }
+
+    public void ResumeGame()
+    {
+        game = GAME.PLAY;
+        GameState(false);
     }
 }
