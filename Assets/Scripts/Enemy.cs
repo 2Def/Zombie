@@ -28,12 +28,18 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void UpdateState()
+    public void UpdateState(Game.GAME stopAnimation = Game.GAME.PLAY)
     {
         switch (state)
         {
             case States.WALK:
                 {
+                    if (stopAnimation == Game.GAME.PAUSE)
+                    {
+                        enemyWalk.enemyAnimations.SetBool("isWalking", false);
+                        return;
+                    }
+
                     if (enemyChase.chaseState)
                         enemyWalk.SetChaserTarget(enemyChase.playerTarget);
                     else
@@ -45,7 +51,6 @@ public class Enemy : MonoBehaviour
                         else
                             enemyWalk.ResetRescueTarget();
                     }
-
                     enemyWalk.Walk();
                 }
                 break;
@@ -53,7 +58,6 @@ public class Enemy : MonoBehaviour
 
         if (enemyWalk.inRotate)
             enemyWalk.InRotate();
-
     }
 
     void Audio()

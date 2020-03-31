@@ -7,8 +7,8 @@ public class Game : MonoBehaviour
 {
 
     public static Vector3 terrainSize;
+    public enum GAME { PLAY, PAUSE };
 
-    enum GAME { PLAY, PAUSE };
     GAME game;
     List<Enemy> enemies;
     CharacterControll playerInfo;
@@ -80,9 +80,13 @@ public class Game : MonoBehaviour
             case GAME.PLAY:
                 {
 
-                    if(Input.GetKey(KeyCode.Escape))
+                    if(Input.GetKeyDown(KeyCode.Escape))
                     {
                         game = GAME.PAUSE;
+                        pauseMenu.SetActive(true);
+                        Cursor.visible = true;
+                        player.Pause(true);
+                        
                     }
 
                     if (timeToPlay > 0)
@@ -100,18 +104,17 @@ public class Game : MonoBehaviour
                     {
                         foreach (Enemy e in enemies)
                         {
-                            e.UpdateState();
+                            e.UpdateState(game);
                         }
                     }
                 }
                 break;
-
-
-            case GAME.PAUSE:
-                {
-                    pauseMenu.GetComponent<Renderer>().enabled = true;
-                }
-                break;
         }
+    }
+
+    public void ExitGame()
+    {
+        
+        Application.Quit();
     }
 }

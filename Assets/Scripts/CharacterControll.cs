@@ -11,6 +11,7 @@ public class CharacterControll : MonoBehaviour
     bool walkState;
     float sprint;
     float sprintCost;
+    bool freezeMe;
 
     [SerializeField]
     private float movement;
@@ -27,10 +28,14 @@ public class CharacterControll : MonoBehaviour
         hitCollider = this.GetComponentInChildren<CharacterHitCollider>() as CharacterHitCollider;
         sprint = 100.0f;
         sprintCost = 25.0f; // 100/10 means 10s of extra speed
+        freezeMe = false;
     }
 
     void Update()
     {
+        if (freezeMe)
+            return;
+
         this.transform.eulerAngles -= new Vector3(Input.GetAxis("Mouse Y") * sensitivity, -Input.GetAxis("Mouse X") * sensitivity, 0);
         walkState = false;
 
@@ -113,5 +118,10 @@ public class CharacterControll : MonoBehaviour
     public float GetSprint()
     {
         return sprint / 100.0f;
+    }
+
+    public void Pause(bool _V)
+    {
+        freezeMe = _V;
     }
 }
