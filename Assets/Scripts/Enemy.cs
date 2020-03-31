@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     EnemyChase enemyChase;
     AudioSource audioSource;
 
+
     [SerializeField]
     private AudioClip zombieMoan;
 
@@ -24,7 +25,6 @@ public class Enemy : MonoBehaviour
         audioSource = this.gameObject.AddComponent<AudioSource>();
 
         Audio();
-
     }
 
     // Update is called once per frame
@@ -74,6 +74,7 @@ public class Enemy : MonoBehaviour
     {
         state = States.STOP;
         enemyWalk.enemyAnimations.SetBool("isWalking", false);
+        Game.CheckWinGame();
     }
 
     private void OnCollisionEnter(Collision collision)

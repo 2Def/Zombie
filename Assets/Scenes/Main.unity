@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7eb97c701eeab4a83ad9a33bc92af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfEnemies: 5
+  amountOfEnemies: 100
   player: {fileID: 1195298326}
   terrain: {fileID: 634653371}
   EnemyUnfreezed: {fileID: 1791951171}
@@ -583,7 +583,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.17
+  m_Intensity: 1.32
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -639,13 +639,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.593138, y: 0, z: 0, w: 0.80510086}
+  m_LocalPosition: {x: 15.88, y: 23.11, z: 14.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 72.76, y: 0, z: 0}
 --- !u!1001 &844873912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1485,12 +1485,12 @@ GameObject:
   - component: {fileID: 1455264832}
   - component: {fileID: 1455264831}
   m_Layer: 5
-  m_Name: Win Text
+  m_Name: WinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
 --- !u!224 &1455264830
 RectTransform:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ public class Game : MonoBehaviour
     public enum GAME { PLAY, PAUSE };
 
     GAME game;
-    List<Enemy> enemies;
+    static List<Enemy> enemies;
     CharacterControll playerInfo;
-    Text hello, counter;
+    static Text hello, counter, wintext;
     int enemiesDistance = 2;
     Vector2 beginSize = new Vector2(25, 25);
     int height = 600;
@@ -32,10 +32,6 @@ public class Game : MonoBehaviour
     GameObject pauseMenu;
     [SerializeField]
     Slider sprintLevel;
-
-
-
-    // Start is called before the first frame update
 
     private void Awake()
     {
@@ -67,7 +63,10 @@ public class Game : MonoBehaviour
          * */
         hello = canvas.transform.Find("Hello").GetComponent<Text>();
         counter = canvas.transform.Find("Counter").GetComponent<Text>();
-        
+        wintext = canvas.transform.Find("WinText").GetComponent<Text>();
+
+        wintext.enabled = false;
+
     }
 
     private void Update()
@@ -116,7 +115,7 @@ public class Game : MonoBehaviour
         player.Pause(_s);
     }
 
-    public bool CheckWinGame()
+    public static void CheckWinGame()
     {
         int amountOfEnemies = enemies.Count;
         int currentFreezed = 0;
@@ -127,9 +126,7 @@ public class Game : MonoBehaviour
                 currentFreezed++;
         }
         if (amountOfEnemies == currentFreezed)
-            return true;
-
-        return false;
+            wintext.enabled = true;
     }
 
     public void ExitGame()

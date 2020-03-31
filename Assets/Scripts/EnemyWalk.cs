@@ -14,6 +14,7 @@ public class EnemyWalk : MonoBehaviour
     bool playerDetected, enemyDetected;
     float wideRunAngel; /* do skomentowania */
     bool [] fallControl;
+    bool inCollision;
 
     [SerializeField]
     private Vector2 timeIntervalBetweenNewDirection;
@@ -39,6 +40,7 @@ public class EnemyWalk : MonoBehaviour
         wideRunAngel = 180.0f;
         fallControl = new bool[] { false, false };
         this.transform.eulerAngles = new Vector3(0, Random.Range(0f, 360.0f), 0);
+        inCollision = false;
     }
 
     public void SetChaserTarget(Vector3 newTarget)
@@ -93,7 +95,7 @@ public class EnemyWalk : MonoBehaviour
         accumulateCurrentTime += Time.deltaTime;
         transform.position += transform.forward * movement * Time.deltaTime;
 
-        if ((accumulateCurrentTime > currentTime || playerDetected || enemyDetected) && !fallControl[0] && !fallControl[1])
+        if ((accumulateCurrentTime > currentTime || playerDetected || enemyDetected || inCollision) && !fallControl[0] && !fallControl[1])
         {
             GenerateNewDirection();
         }
@@ -141,6 +143,7 @@ public class EnemyWalk : MonoBehaviour
         }
         else
         {
+            inCollision = false;
             accumulateCurrentTime = 0f;
             direction = Random.Range(0f, 360f);
         }
@@ -176,7 +179,7 @@ public class EnemyWalk : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        currentTime -= 1f;
+        inCollision = true;
     }
 
 }
