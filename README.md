@@ -23,3 +23,7 @@ Resume menu (ESC)
 
 ![Alt text](https://i.ibb.co/M1MFJ1P/4.png "Optional title")
 (Freezed Zombie, and another which come to rescue the first one)
+
+![Alt text](https://i.ibb.co/T1h3BvC/5.png "Optional title")
+World adjust to amount of enemies.
+
