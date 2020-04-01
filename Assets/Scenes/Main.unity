@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7eb97c701eeab4a83ad9a33bc92af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfEnemies: 300
+  amountOfEnemies: 5
   player: {fileID: 1195298326}
   terrain: {fileID: 634653371}
   EnemyUnfreezed: {fileID: 1791951171}
