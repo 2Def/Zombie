@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7eb97c701eeab4a83ad9a33bc92af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfEnemies: 100
+  amountOfEnemies: 300
   player: {fileID: 1195298326}
   terrain: {fileID: 634653371}
   EnemyUnfreezed: {fileID: 1791951171}
@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1764706, g: 0.14117648, b: 0.1137255, a: 1}
+  m_Color: {r: 0, g: 0.09689808, b: 1, a: 0.6745098}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
