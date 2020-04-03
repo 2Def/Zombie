@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     EnemyWalk enemyWalk;
     EnemyChase enemyChase;
     AudioSource audioSource;
+    Rigidbody rigidbody;
 
 
     [SerializeField]
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
         enemyWalk = GetComponentInChildren<EnemyWalk>();
         enemyChase = GetComponentInChildren<EnemyChase>();
         audioSource = this.gameObject.AddComponent<AudioSource>();
+        rigidbody = this.gameObject.GetComponent<Rigidbody>();
 
         Audio();
     }
@@ -72,6 +74,7 @@ public class Enemy : MonoBehaviour
 
     public void Catched()
     {
+        rigidbody.isKinematic = true;
         state = States.STOP;
         enemyWalk.enemyAnimations.SetBool("isWalking", false);
         Game.CheckWinGame();
@@ -84,6 +87,7 @@ public class Enemy : MonoBehaviour
         {
             if (collision.gameObject.tag == "Enemy" && currentCollided.state == States.STOP)
             {
+                currentCollided.rigidbody.isKinematic = false;
                 currentCollided.state = States.WALK;
                 enemyChase.EnemyIsWalking(currentCollided);
             }
