@@ -143,7 +143,8 @@ public class Game : MonoBehaviour
             for(int j=0; j<2; j++)
             {
                 particles.Add( Instantiate(particle, new Vector3(terrainSize.x * i ,-1.0f, terrainSize.z * j ) ,Quaternion.identity ) );
-                particles[particles.Count - 1].startLifetime = 0.5f * amountOfEnemies; 
+                particles[particles.Count - 1].startLifetime = 0.5f * amountOfEnemies;
+                particles[particles.Count - 1].transform.eulerAngles = new Vector3(0, 90.0f * (i + j), 0);
             }
         }
         Destroy(particle);
