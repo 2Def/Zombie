@@ -8,9 +8,12 @@ public class Game : MonoBehaviour
 
     public static Vector3 terrainSize;
     public enum GAME { PLAY, PAUSE };
+    public enum ENVIRONMENT { WALL, BORDER, INNER };
+    public enum DIRECTION { FORWARD, BACK, LEFT, RIGHT }
 
     GAME game;
     static List<Enemy> enemies;
+    List<ParticleSystem> particles;
     CharacterControll playerInfo;
     static Text hello, counter, wintext;
     int enemiesDistance = 2;
@@ -18,20 +21,25 @@ public class Game : MonoBehaviour
     int height = 600;
     float timeToPlay = 5;
 
+
     [SerializeField]
     private int amountOfEnemies;
     [SerializeField]
-    CharacterControll player;
+    private CharacterControll player;
     [SerializeField]
-    Terrain terrain;
+    private Terrain terrain;
     [SerializeField]
-    GameObject EnemyUnfreezed;
+    private GameObject EnemyUnfreezed;
     [SerializeField]
-    Canvas canvas;
+    private Canvas canvas;
     [SerializeField]
-    GameObject pauseMenu;
+    private GameObject pauseMenu;
     [SerializeField]
-    Slider sprintLevel;
+    private Slider sprintLevel;
+    [SerializeField]
+    private List<GameObject> externEnvironment;
+    [SerializeField]
+    private float rotationSpeedOfParticles;
 
     private void Awake()
     {
@@ -41,7 +49,9 @@ public class Game : MonoBehaviour
         Cursor.visible = false;
         game = GAME.PLAY;
 
+        externEnvironment = new List<GameObject>();
         enemies = new List<Enemy>();
+        particles = new List<ParticleSystem>();
 
         /*
          * Create Enemies
@@ -61,11 +71,19 @@ public class Game : MonoBehaviour
          * UI
          * 
          * */
+
         hello = canvas.transform.Find("Hello").GetComponent<Text>();
         counter = canvas.transform.Find("Counter").GetComponent<Text>();
         wintext = canvas.transform.Find("WinText").GetComponent<Text>();
 
         wintext.enabled = false;
+
+        /*
+         * 
+         * Create Particles
+         * 
+         * */
+        SetParticles();
 
     }
 
@@ -103,6 +121,8 @@ public class Game : MonoBehaviour
                             e.UpdateState(game);
                         }
                     }
+
+                    RotateParticles();
                 }
                 break;
         }
@@ -113,6 +133,40 @@ public class Game : MonoBehaviour
         pauseMenu.SetActive(_s);
         Cursor.visible = _s;
         player.Pause(_s);
+    }
+
+    void SetParticles()
+    {
+        ParticleSystem particle = GameObject.FindGameObjectWithTag("Particle").GetComponent<ParticleSystem>();
+        for(int i=0; i<2; i++)
+        {
+            for(int j=0; j<2; j++)
+            {
+                particles.Add( Instantiate(particle, new Vector3(terrainSize.x * i ,-1.0f, terrainSize.z * j ) ,Quaternion.identity ) );
+                particles[particles.Count - 1].startLifetime = 0.5f * amountOfEnemies; 
+            }
+        }
+        Destroy(particle);
+    }
+
+    void RotateParticles()
+    {
+        foreach(ParticleSystem ps in particles)
+        {
+            ps.transform.eulerAngles = new Vector3(90.0f, (ps.transform.eulerAngles.y + (rotationSpeedOfParticles * Time.deltaTime)) % 360.0f , 0.0f);
+        }
+    }
+
+    void GenerateEnvironment()
+    {
+        /* Begin is Front */
+        int randomTrys = externEnvironment.Count;
+        Vector2 currentPos = Vector2.zero;
+        DIRECTION currentDir = DIRECTION.FORWARD;
+
+
+
+
     }
 
     public static void CheckWinGame()
