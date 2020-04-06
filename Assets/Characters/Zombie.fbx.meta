@@ -8,6 +8,11 @@ ModelImporter:
     second: mixamo.com
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: yaku_zombie_material
+    second: {fileID: 2100000, guid: 0ecc9b0214592014d8fd8a497902647a, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Yakuzombie_diffuse
